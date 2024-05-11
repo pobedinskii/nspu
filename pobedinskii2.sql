@@ -21,3 +21,14 @@ SELECT week_day, group_id, COUNT(discipline_id) FROM `schedule` GROUP BY week_da
 Кол-во занятий в каждой аудитории по дням недели
 */
 SELECT week_day, classroom, COUNT(*) FROM `schedule` GROUP BY week_day, classroom;
+
+SELECT `name`, COUNT(`name`) FROM disciplines GROUP BY `name` HAVING COUNT(`name`) > 1;
+SELECT `name`, COUNT(`name`) FROM disciplines WHERE `name` LIKE '%базы данных%' GROUP BY `name` HAVING COUNT(`name`) > 1;
+/*
+Дисциплины, где среднее кол-во часов > 50
+*/
+SELECT `name`, AVG(hours) FROM disciplines GROUP BY `name` HAVING AVG(hours) > 50;
+/*
+Дисциплины, где часы заполнены
+*/
+SELECT `name` as 'Наименование дисциплины', AVG(hours) FROM disciplines WHERE hours IS NOT NULL GROUP BY `name`;
